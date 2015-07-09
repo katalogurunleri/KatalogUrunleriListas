@@ -15,11 +15,19 @@ public class UsuarioN {
 
     public static Usuario cabeza;
 
-    public Usuario validarIngreso(String user, String clave) {
+    public Usuario validarIngreso(String user, String clave) throws Exception {
         String id = "sosa";
         String pw = "Sosa1234";
         Usuario u = new Usuario();
         u.usuario = "0";
+        Usuario un = cabeza;
+        while (un != null) {
+            if (un.usuario.equals(user)) {
+                return un;
+            } else {
+                un = un.apuntador;
+            }
+        }
         if (user.equals(id) && clave.equals(pw)) {
             u.usuario = "sosa";
             u.nombre = "Brayan Sosa";
@@ -29,6 +37,9 @@ public class UsuarioN {
             u.estado = "Activo";
             u.correo = "brayan_sosa23151@elpoli.edu.co";
             u.foto = "sosa.jpg";
+            if (buscar(user) == null) {
+                insertarUsuario(u);
+            }
         }
         return u;
     }
@@ -38,18 +49,14 @@ public class UsuarioN {
             cabeza = new Usuario();
             cabeza = datou;
         } else {
-            String mensajeError = "";
             Usuario aux = cabeza;
+            String mensajeError = "";
             while (aux.apuntador != null) {
-                if (datou.usuario.equals(aux.usuario)) {
-                    mensajeError = "Usuario ya existe <br>";
+                if (aux.usuario.equals(datou.usuario)) {
+                    mensajeError = "Usuario: " + aux.usuario + "... Ya existe <br>";
                     if (!"".equals(mensajeError)) {
                         throw new Exception(mensajeError);
                     }// fin si
-                    else {
-                        aux.apuntador = datou;
-                        throw new Exception(mensajeError);
-                    }
                 } else {
                     aux = aux.apuntador;
                 }
@@ -94,6 +101,7 @@ public class UsuarioN {
                 aux.apuntador = datou;
                 throw new Exception(mensajeError);
             }
+
         }
     }
 
@@ -123,6 +131,38 @@ public class UsuarioN {
 
     public Usuario listar() {
         return cabeza;
+    }
+
+    public boolean editarUsuario(Usuario datou) throws Exception {
+        String mensajeError = "";
+        if (cabeza == null) {
+            mensajeError = "<br>No hay datos";
+            if (!"".equals(mensajeError)) {
+                throw new Exception(mensajeError);
+            }// fin si
+        } else {
+            Usuario aux = cabeza;
+            while (aux != null) {
+                if (datou.usuario.equals(aux.usuario)) {
+                    aux.usuario = datou.usuario;
+                    aux.nombre = datou.nombre;
+                    aux.clave = datou.clave;
+                    aux.conclave = datou.conclave;
+                    aux.perfil = datou.perfil;
+                    aux.estado = datou.estado;
+                    aux.correo = datou.correo;
+                    aux.foto = datou.foto;
+                    mensajeError += "<br>Usuario actualizado";
+                    if (!"".equals(mensajeError)) {
+                        throw new Exception(mensajeError);
+                    }// fin si
+                    return true;
+                } else {
+                    aux = aux.apuntador;
+                }
+            }
+        }
+        return false;
     }
 
 }

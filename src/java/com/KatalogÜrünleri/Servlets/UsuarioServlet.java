@@ -150,16 +150,65 @@ public class UsuarioServlet extends HttpServlet {
             }
         }// fin guardar
 
+        if ("editar".equals(request.getParameter("action"))) {
+            try {
+                Usuario aux = new Usuario();
+                aux.usuario = user;
+                aux.nombre = nombre;
+                aux.clave = clave;
+                aux.conclave = conclave;
+                aux.perfil = perfil;
+                aux.estado = estado;
+                aux.correo = correo;
+                aux.foto = foto;
+                if (un.editarUsuario(aux) == true) {
+                    men += "Usuario actualizado";
+                } else {
+                    men += "Usuario no actualizado";
+                }
+                men += "Usuario actualizado";
+            } catch (Exception e) {
+                men += e.getMessage();
+            }
+        }
         if ("listar".equals(request.getParameter("action"))) {
             try {
+                limpiar();
+                request.setAttribute("datousuario", entU);
                 un.imprimir();
                 if (un.listar() != null) {
-                    men = "Tabla de los usuarios existentes"; 
-                   Usuario aux = un.listar();
+                    men = "Tabla de los usuarios existentes";
+                    men += "<table class=\"tabla\">";
+                    men += "<tr>";
+                    men += "<td>Usuario</td>";
+                    men += "<td>Nombre</td>";
+                    men += "<td>Perfil</td>";
+                    men += "<td>Estado</td>";
+                    men += "<td>Correo</td>";
+                    men += "<td>Foto</td>";
+                    men += "<td>Buscar</td>";
+                    men += "</tr>";
+                    Usuario aux = un.listar();
                     while (aux != null) {
-                        men +="<BR>Usuario: " + aux.usuario;
+                        men += "<tr>";
+                        men += "<td>" + aux.usuario + "</td>";
+                        men += "<td>" + aux.nombre + "</td>";
+                        men += "<td>" + aux.perfil + "</td>";
+                        men += "<td>" + aux.estado + "</td>";
+                        men += "<td>" + aux.correo + "</td>";
+                        if (aux.foto == null) {
+                            aux.foto = "";
+                        }
+                        if (aux.foto.equals("")) {
+                            men += "<td><img id=\"perfil\" src=\"ImagePerfil/perfil.jpg\" width=\"50\" height=\"50\" />";
+                        } else {
+                            men += "<td> <img id=\"perfil\" src=\"ImagePerfil/" + aux.foto + "\" width=\"50\" height=\"50\"></td>";
+                        }
+                        men += "<td> <a href=\"./UsuarioServlet?action=buscar&txtusuario=" + aux.usuario + "\"> <img src=\"Imagenes/lupa.png\"> </a></td>";
+                        men += "</tr>";
                         aux = aux.apuntador;
                     }
+                    men += "</table>";
                 } else {
                     men += "No hay usuarios registrados";
                 }
@@ -178,11 +227,10 @@ public class UsuarioServlet extends HttpServlet {
                     men += "Usuario encontrado";
                 } else {
                     men += "Usuario no encontrado <BR>";
-                    men += "Usuario no existe <BR>";
+
                 }
             } catch (Exception e) {
-
-                men += "ERROR CAUSA: " + e.getMessage();
+                men += "Usuario no existe <BR>";
             }
         }
 
@@ -237,5 +285,4 @@ public class UsuarioServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

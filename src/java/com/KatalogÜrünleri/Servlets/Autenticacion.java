@@ -9,6 +9,8 @@ import com.KatalogÜrünleri.Entidades.Usuario;
 import com.KatalogÜrünleri.Negocio.UsuarioN;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +42,7 @@ public class Autenticacion extends HttpServlet {
         String men = "";
         UsuarioN un = new UsuarioN();
         Usuario u = new Usuario();
-
+        
         if ("".equals(clave) || null == clave) {
             men = "Ingrese la  contraseña";
         }
@@ -51,33 +53,41 @@ public class Autenticacion extends HttpServlet {
             men = "Ingrese el usuario y la contraseña";
         }
         if ("".equals(men)) {
-            u = un.validarIngreso(user, clave);
+            try {
+                u = un.validarIngreso(user, clave);
+            } catch (Exception ex) {
+                // Logger.getLogger(Autenticacion.class.getName()).log(Level.SEVERE, null, ex);
+            }
             if (u.usuario == "sosa") {
                 request.getSession(true).setAttribute("usuario", u);
                 request.setAttribute("target", "./FPrincipal.jsp");
             } else {
-                request.setAttribute("target", "./FLogin.jsp");
-                men = "El usuario y/o contraseña no coinciden";
-
+                if (user.equals(u.usuario) && clave.equals(u.clave)) {
+                    request.getSession(true).setAttribute("usuario", u);
+                    request.setAttribute("target", "./FPrincipal.jsp");
+                } else {
+                    request.setAttribute("target", "./FLogin.jsp");
+                    men = "El usuario y/o contraseña no coinciden";
+                }
             }
         }
-
+        
         request.setAttribute("mensajeError", men);
         request.getRequestDispatcher("./Principal.jsp").forward(request, response);
-
+        
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-/**
- * Handles the HTTP <code>GET</code> method.
- *
- * @param request servlet request
- * @param response servlet response
- * @throws ServletException if a servlet-specific error occurs
- * @throws IOException if an I/O error occurs
- */
-@Override
-        protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -91,7 +101,7 @@ public class Autenticacion extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-        protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -102,7 +112,7 @@ public class Autenticacion extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-        public String getServletInfo() {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
