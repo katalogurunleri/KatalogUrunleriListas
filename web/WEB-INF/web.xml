@@ -8,6 +8,10 @@
         <servlet-name>Autenticacion</servlet-name>
         <servlet-class>com.KatalogÜrünleri.Servlets.Autenticacion</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ClienteServlet</servlet-name>
+        <servlet-class>com.KatalogÜrünleri.Servlets.ClienteServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UsuarioServlet</servlet-name>
         <url-pattern>/UsuarioServlet</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>Autenticacion</servlet-name>
         <url-pattern>/Autenticacion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClienteServlet</servlet-name>
+        <url-pattern>/ClienteServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

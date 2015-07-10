@@ -106,39 +106,10 @@
                     </fieldset>
                 </div> 
                 <center> <br><br>  <jsp:include page="FBotones.jsp" flush="true"/> </center>
-
             </form>
         </div>
         <div id="tblu">
-            <center> <h3><%=men%></h3></center>
-            <BR>
-            <%if (LU != null) {%>
-
-            <table class="tabla">
-                <tr>
-                    <td >Usuario</td>    
-                    <td >Nombre</td>    
-                    <td >Perfil</td>    
-                    <td >Estado</td>    
-                    <td >Correo</td>  
-                    <td >Foto</td>  
-                    <td >Buscar</td>  
-                </tr>
-                <% for (Usuario us : LU) {%>
-                <%if (us.estado.equals("Activo")) {%>
-                <tr>
-                    <td ><%=us.usuario%></td>    
-                    <td ><%=us.nombre%></td>
-                    <td ><%=us.perfil%></td>
-                    <td ><%=us.estado%></td>
-                    <td ><%=us.correo%></td>
-                    <td> <img id="perfil" src="ImagePerfil/<%=us.foto%>" width="50" height="50"></td>
-                    <td> <a href="./UsuarioServlet?action=buscar&txtusuario=<%=us.usuario%>"> <img src="Imagenes/lupa.png"> </a></td>
-                </tr>
-                <%}%>  
-                <%}%>  
-            </table> 
-            <%}%>  
+            <center> <h3><%=men%></h3></center> 
         </div>
 
     </body>

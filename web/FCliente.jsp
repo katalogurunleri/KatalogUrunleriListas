@@ -5,10 +5,13 @@
     String idecli = request.getParameter("txtidecliente");
     String nom = request.getParameter("txtnombre");
     String ape = request.getParameter("txtapellido");
+    String cla = request.getParameter("txtclave");
+    String ccla = request.getParameter("txtconclave");
     String corr = request.getParameter("txtcorreo");
     String tele = request.getParameter("txttelefono");
     String dire = request.getParameter("txtdireccion");
     String estado = request.getParameter("cboestado");
+    String foto = request.getParameter("filefoto");
 
     String men = (String) request.getAttribute("mensaje") != null ? (String) request.getAttribute("mensaje") : "";
 
@@ -19,10 +22,13 @@
         idecli = datoc.getIdeCliente();
         nom = datoc.getNombres();
         ape = datoc.getApellidos();
+        cla = datoc.getClave();
+        ccla = datoc.getClave();
         corr = datoc.getCorreo();
         tele = datoc.getTelefono();
         dire = datoc.getDireccion();
         estado = datoc.getEstado();
+        foto = datoc.getFoto();
     }// fin si
 
 %>
@@ -55,6 +61,14 @@
                                 <td><input type="text" name="txtapellido" value="<%=ape != null ? ape : ""%>" size="20" maxlength="30"> </td>
                             </tr>
                             <tr>
+                                <td id="tex"><b>Contraseña</b>*</td>
+                                <td><input type="password" name="txtclave" value="<%= cla != null ? cla : ""%>" size="20" maxlength="16"></td>
+                            </tr>
+                            <tr>
+                                <td id="tex"><b>Confirma la contraseña*</b></td>
+                                <td><input type="password" name="txtconclave" value="<%= ccla != null ? ccla : ""%>" size="20" maxlength="16"></td>
+                            </tr>
+                            <tr>
                                 <td id="tex"><b>Correo*</b></td>
                                 <td><input type="text" name="txtcorreo" value="<%=corr != null ? corr : ""%>" size="20" maxlength="40"> </td>
                             </tr>
@@ -76,6 +90,20 @@
                                     </select>
                                 </td>
                             </tr>
+                            <tr>
+                                <%
+                                    if (foto == null) {
+                                        foto = "";
+                                    }
+                                    if (foto.equals("")) {
+                                %>
+                                <td><img id="perfil" src="ImagePerfilCli/perfil.jpg" width="100" height="100" />
+                                    <% } else {%>
+                                <td><img id="perfil" src="<%="ImagePerfilCli/" + foto%>" width="100" height="100" />
+                                    <%}%>
+                                </td>
+                                <td><input type="file" name="filefoto" value="<%=foto%>" ></td>
+                            </tr>
                             <tr> 
                                 <td colspan="2" id="cam">Campos con asterisco (*) son obligatorios</td>
                             </tr>
@@ -88,32 +116,6 @@
         </div>
         <div id="tblu">
             <center> <h3><%=men%></h3> </center>
-            <BR>
-            <%if (LC != null) {%>
-
-            <table class="tabla">
-                <tr>
-                    <td >Ide. Cliente</td>    
-                    <td >Nombre (s)</td>    
-                    <td >Apellido (s)</td>    
-                    <td >Correo</td>   
-                    <td >Teléfono</td>   
-                    <td >Estado</td> 
-                    <td>Buscar</td> 
-                </tr>
-                <% for (Cliente cli : LC) {%>
-                <tr >
-                    <td ><%=cli.getIdeCliente()%> </td>    
-                    <td ><%=cli.getNombres()%> </td>    
-                    <td ><%=cli.getApellidos()%> </td>    
-                    <td ><%=cli.getCorreo()%> </td>    
-                    <td ><%=cli.getTelefono()%> </td>    
-                    <td ><%=cli.getEstado()%> </td>  
-                    <td> <a href="./ClienteServlet?action=buscar&txtidecliente=<%=cli.getIdeCliente()%>"> <img src="Imagenes/lupa.png"> </a></td>
-                </tr>
-                <%}%>  
-            </table> 
-            <%}%>  
         </div>
     </body>
     <style type="text/css">
@@ -176,10 +178,10 @@
             color: #00a383;
         }
         #tblu{ 
-            margin-left: 40%;
-            width:700px;
+            margin-left: 39%;
+            width:750px;
             height: 280px;
-            margin-top: -29%;
+            margin-top: -40%;
             position:absolute;
             overflow-x: hidden;
         }

@@ -1,8 +1,7 @@
 package com.KatalogÜrünleri.Servlets;
 
-import com.KatalogÜrünleri.Entidades.Usuario;
-import com.KatalogÜrünleri.Negocio.UsuarioN;
-import static com.KatalogÜrünleri.Negocio.UsuarioN.cabeza;
+import com.KatalogÜrünleri.Entidades.Cliente;
+import com.KatalogÜrünleri.Negocio.ClienteN;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author USER
+ * @author Brayan Sosa
  */
-public class UsuarioServlet extends HttpServlet {
+public class ClienteServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -25,40 +24,40 @@ public class UsuarioServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    Usuario entU = new Usuario();
+    Cliente entC = new Cliente();
 
     public void limpiar() {
-        entU.setUsuario("");
-        entU.setNombre("");
-        entU.setEstado("");
-        entU.setPerfil("");
-        entU.setClave("");
-        entU.setCorreo("");
-        entU.setConclave("");
-
+        entC.setIdeCliente("");
+        entC.setNombres("");
+        entC.setApellidos("");
+        entC.setCorreo("");
+        entC.setTelefono("");
+        entC.setDireccion("");
+        entC.setEstado("...Seleccione...");
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String modulo = "FUsuario.jsp";// enviar respuesta
+        String modulo = "FCliente.jsp";// enviar respuesta
         String pagina = "./FPrincipal.jsp";
         request.setAttribute("targetModulo", modulo);
         // Traer par�metros de la petici�n
         // Hecha desde FUsuario.jsp
-        String user = request.getParameter("txtusuario");
-        String nombre = request.getParameter("txtnombre");
-        String clave = request.getParameter("txtclave");
-        String conclave = request.getParameter("txtconclave");
-        String perfil = request.getParameter("cboperfil");
-
+        String idecli = request.getParameter("txtidecliente");
+        String nom = request.getParameter("txtnombre");
+        String ape = request.getParameter("txtapellido");
+        String cla = request.getParameter("txtclave");
+        String ccla = request.getParameter("txtconclave");
+        String corr = request.getParameter("txtcorreo");
+        String tele = request.getParameter("txttelefono");
+        String dire = request.getParameter("txtdireccion");
         String estado = request.getParameter("cboestado");
-        String correo = request.getParameter("txtcorreo");
         String foto = request.getParameter("filefoto");
 
         String men = "";// para los mensajes
-        UsuarioN un = new UsuarioN();// Creamos un Objeto
+        ClienteN cn = new ClienteN();// Creamos un Objeto
         // de tipo UsuarioN();
         // Establecemos atributos e inicializamos en null
         request.setAttribute("listado", null);
@@ -68,8 +67,8 @@ public class UsuarioServlet extends HttpServlet {
         request.setAttribute("mensaje", null);
         // Creamos un atributo para recuperar
         // Un dato de consulta(de Un Usuario x)
-        request.setAttribute("datousuario", null);
-        // hay un botón con name = action y
+        request.setAttribute("datocliente", null);
+        // hay un bot�n con name = action y
         // con una propiedad value = buscar
         // si(buscar es igual a un par�metro de una petici�n)
         //llamada action   
@@ -77,7 +76,7 @@ public class UsuarioServlet extends HttpServlet {
         if ("nuevo".equals(request.getParameter("action"))) {
             try {
                 limpiar();
-                request.setAttribute("datousuario", entU);
+                request.setAttribute("datocliente", entC);
             } catch (Exception er) {
                 men = "" + er.getMessage();
             }
@@ -85,7 +84,7 @@ public class UsuarioServlet extends HttpServlet {
 
         if ("guardar".equals(request.getParameter("action"))) {
             try {
-                if (clave.equals(conclave)) {
+                if (cla.equals(ccla)) {
                     String resp = "NO SIRVE";
                     char Caracter;
                     int ASCII;
@@ -94,8 +93,8 @@ public class UsuarioServlet extends HttpServlet {
                     int num = 0;
                     int minusc = 0;
 
-                    for (int i = 0; i < clave.length(); i++) {
-                        Caracter = clave.charAt(i);
+                    for (int i = 0; i < cla.length(); i++) {
+                        Caracter = cla.charAt(i);
                         ASCII = Caracter;
                         if (ASCII >= 65 && ASCII <= 90) {
                             mayusc = mayusc + 1;
@@ -107,21 +106,23 @@ public class UsuarioServlet extends HttpServlet {
                             minusc = minusc + 1;
                         }
                     }
-                    if (clave.length() >= 8 && clave.length() <= 16) {
+                    if (cla.length() >= 8 && cla.length() <= 16) {
                         longi = 1;
                     }
                     if (mayusc != 0 && longi != 0 && num >= 3 && minusc >= 3) {
                         resp = "SIRVE";
-                        Usuario aux = new Usuario();
-                        aux.usuario = user;
-                        aux.nombre = nombre;
-                        aux.clave = clave;
-                        aux.conclave = conclave;
-                        aux.perfil = perfil;
+                        Cliente aux = new Cliente();
+                        aux.ideCliente = idecli;
+                        aux.nombres = nom;
+                        aux.apellidos = ape;
+                        aux.clave = cla;
+                        aux.conclave = ccla;
+                        aux.correo = corr;
+                        aux.telefono = tele;
+                        aux.direccion = dire;
                         aux.estado = estado;
-                        aux.correo = correo;
                         aux.foto = foto;
-                        un.insertarUsuario(aux);
+                        cn.insertarCliente(aux);
 
                     }
                     if (resp.equals("NO SIRVE")) {
@@ -150,105 +151,102 @@ public class UsuarioServlet extends HttpServlet {
             }
         }// fin guardar
 
+        if ("buscar".equals(request.getParameter("action"))) {
+            try {
+                // un.buscar(user);
+                Cliente aux;
+                aux = cn.buscar(idecli);
+                if (!aux.ideCliente.equals("")){
+                    request.setAttribute("datocliente", cn.buscar(idecli));
+                    men += "Cliente encontrado";
+                } else {
+                    men += "Cliente no encontrado <BR>";
+
+                }
+            } catch (Exception e) {
+                men += "Cliente no existe <BR>";
+            }
+        }//Fin buscar
+
         if ("editar".equals(request.getParameter("action"))) {
             try {
-                Usuario aux = new Usuario();
-                aux.usuario = user;
-                aux.nombre = nombre;
-                aux.clave = clave;
-                aux.conclave = conclave;
-                aux.perfil = perfil;
+                Cliente aux = new Cliente();
+                aux.ideCliente = idecli;
+                aux.nombres = nom;
+                aux.apellidos = ape;
+                aux.clave = cla;
+                aux.conclave = ccla;
+                aux.correo = corr;
+                aux.telefono = tele;
+                aux.direccion = dire;
                 aux.estado = estado;
-                aux.correo = correo;
                 aux.foto = foto;
-                if (un.editarUsuario(aux) == true) {
-                    men += "Usuario actualizado";
+                if (cn.editarCliente(aux) == true) {
+                    men += "Cliente actualizado";
                 } else {
-                    men += "Usuario no actualizado";
+                    men += "Cliente no actualizado";
                 }
-                men += "Usuario actualizado";
+                men += "Cliente actualizado";
             } catch (Exception e) {
                 men += e.getMessage();
             }
         }//Fin editar
-        
+
         if ("listar".equals(request.getParameter("action"))) {
             try {
                 limpiar();
-                request.setAttribute("datousuario", entU);
-                un.imprimir();
-                if (un.listar() != null) {
+                request.setAttribute("datocliente", entC);
+                cn.imprimir();
+                if (cn.listar() != null) {
                     men = "Tabla de los usuarios existentes";
                     men += "<table class=\"tabla\">";
                     men += "<tr>";
-                    men += "<td>Usuario</td>";
-                    men += "<td>Nombre</td>";
-                    men += "<td>Perfil</td>";
+                    men += "<td>Cédula</td>";
+                    men += "<td>Nombres</td>";
+                    men += "<td>Apellidos</td>";
+                    //men += "<td>Correo</td>";
+                    men += "<td>Teléfono</td>";
+                    men += "<td>Dirección</td>";
                     men += "<td>Estado</td>";
-                    men += "<td>Correo</td>";
                     men += "<td>Foto</td>";
                     men += "<td>Buscar</td>";
                     men += "</tr>";
-                    Usuario aux = un.listar();
+                    Cliente aux = cn.listar();
                     while (aux != null) {
                         men += "<tr>";
-                        men += "<td>" + aux.usuario + "</td>";
-                        men += "<td>" + aux.nombre + "</td>";
-                        men += "<td>" + aux.perfil + "</td>";
+                        men += "<td>" + aux.ideCliente + "</td>";
+                        men += "<td>" + aux.nombres + "</td>";
+                        men += "<td>" + aux.apellidos + "</td>";
+                        //men += "<td>" + aux.correo + "</td>";
+                        men += "<td>" + aux.telefono + "</td>";
+                        men += "<td>" + aux.direccion + "</td>";
                         men += "<td>" + aux.estado + "</td>";
-                        men += "<td>" + aux.correo + "</td>";
                         if (aux.foto == null) {
                             aux.foto = "";
                         }
                         if (aux.foto.equals("")) {
-                            men += "<td><img id=\"perfil\" src=\"ImagePerfil/perfil.jpg\" width=\"50\" height=\"50\" />";
+                            men += "<td><img id=\"perfil\" src=\"ImagePerfilCli/perfil.jpg\" width=\"50\" height=\"50\" />";
                         } else {
-                            men += "<td> <img id=\"perfil\" src=\"ImagePerfil/" + aux.foto + "\" width=\"50\" height=\"50\"></td>";
+                            men += "<td> <img id=\"perfil\" src=\"ImagePerfilCli/" + aux.foto + "\" width=\"50\" height=\"50\"></td>";
                         }
-                        men += "<td> <a href=\"./UsuarioServlet?action=buscar&txtusuario=" + aux.usuario + "\"> <img src=\"Imagenes/lupa.png\"> </a></td>";
+                        men += "<td> <a href=\"./ClienteServlet?action=buscar&txtidecliente=" + aux.ideCliente + "\"> <img src=\"Imagenes/lupa.png\"> </a></td>";
                         men += "</tr>";
                         aux = aux.apuntador;
                     }
                     men += "</table>";
                 } else {
-                    men += "No hay usuarios registrados";
+                    men += "No hay clientes registrados";
                 }
             } catch (Exception e) {
                 men = e.getMessage();
             }
-        }//Fin listar
-
-        if ("buscar".equals(request.getParameter("action"))) {
-            try {
-                // un.buscar(user);
-                Usuario aux;
-                aux = un.buscar(user);
-                if (aux.usuario != "0") {
-                    request.setAttribute("datousuario", un.buscar(user));
-                    men += "Usuario encontrado";
-                } else {
-                    men += "Usuario no encontrado <BR>";
-
-                }
-            } catch (Exception e) {
-                men += "Usuario no existe <BR>";
-            }
-        }//Fin buscar
-
-        if ("salir".equals(request.getParameter("action"))) {
-            request.getSession().invalidate();
-            request.getRequestDispatcher("./index.jsp").forward(request, response);
-        }
-        if ("inicio".equals(request.getParameter("action"))) {
-            request.getRequestDispatcher(pagina).forward(request, response);
-
-        }
+        }// fin listar
 
         request.setAttribute("mensaje", men);
         request.getRequestDispatcher(pagina).forward(request, response);
-    } // fin processrequest 
+    }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -286,4 +284,5 @@ public class UsuarioServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 }

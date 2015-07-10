@@ -92,7 +92,7 @@ public class UsuarioN {
             if ("".equals(cor) || null == cor) {
                 mensajeError += "<br>Debe ingresar el correo";
             }// fin si
-
+            
             if (!"".equals(mensajeError)) {
                 throw new Exception(mensajeError);
             }// fin si
@@ -105,17 +105,6 @@ public class UsuarioN {
         }
     }
 
-    public void imprimir() {
-        Usuario aux = cabeza;
-        System.out.println("-----INICIO-----");
-        System.out.println("Usuario ... Nombre ... Estado");
-        while (aux != null) {
-            System.out.println(aux.usuario + " ... " + aux.nombre + " ... " + aux.estado);
-            aux = aux.apuntador;
-        }// fin mientras
-        System.out.println("-----FIN-----");
-    }// fin ListaUsuarios  
-
     public Usuario buscar(String user) {
         Usuario aux = cabeza;
         String mensajeError = "";
@@ -127,10 +116,6 @@ public class UsuarioN {
             }
         }
         return aux;
-    }
-
-    public Usuario listar() {
-        return cabeza;
     }
 
     public boolean editarUsuario(Usuario datou) throws Exception {
@@ -165,4 +150,18 @@ public class UsuarioN {
         return false;
     }
 
+    public void imprimir() {
+        Usuario aux = cabeza;
+        System.out.println("-----INICIO-----");
+        System.out.println("Usuario ... Nombre ... Estado");
+        while (aux != null) {
+            System.out.println(aux.usuario + " ... " + aux.nombre + " ... " + aux.estado);
+            aux = aux.apuntador;
+        }// fin mientras
+        System.out.println("-----FIN-----");
+    }// fin ListaUsuarios  
+
+    public Usuario listar() {
+        return cabeza;
+    }
 }
