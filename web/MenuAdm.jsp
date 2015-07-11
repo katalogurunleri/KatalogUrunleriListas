@@ -27,8 +27,8 @@
                 <a href="./UsuarioServlet" id="letra">  <li> <center> Usuarios </center>  </li> </a>
                 <a href="./ClienteServlet" id="letra">  <li> <center> Clientes </center>  </li> </a>
                 <a href="./ProductoServlet" id="letra">  <li> <center> Productos </center>  </li> </a>
-                <a href="#" id="letra">  <li> <center> Pedidos </center>  </li> </a>
-                <a href="#" id="letra">  <li> <center> Ventas </center>  </li> </a>
+                <a href="./PedidosServlet" id="letra">  <li> <center> Pedidos </center>  </li> </a>
+                <a href="./VentasServlet" id="letra">  <li> <center> Ventas </center>  </li> </a>
 
             </ul>
         </div>
@@ -59,7 +59,7 @@
                 <li id="li">
                     <img id="ima" src="Imagenes/ajustes.png" width="20"  height="20"/>
                     <ul id="ul2">
-                        <li><a id="a"><center>Perfil</center></a></li>
+                        <li><a id="a" href="./PerfilServlet"><center>Perfil</center></a></li>
                         <li ><a id="a" href="./UsuarioServlet?action=salir"><center>Cerrar sesion</center></a></li>
                     </ul>
                 </li>

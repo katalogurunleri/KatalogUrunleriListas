@@ -24,6 +24,18 @@
         <servlet-name>CorreoServlet</servlet-name>
         <servlet-class>com.KatalogÜrünleri.Servlets.CorreoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PedidosServlet</servlet-name>
+        <servlet-class>com.KatalogÜrünleri.Servlets.PedidosServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VentasServlet</servlet-name>
+        <servlet-class>com.KatalogÜrünleri.Servlets.VentasServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PerfilServlet</servlet-name>
+        <servlet-class>com.KatalogÜrünleri.Servlets.PerfilServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UsuarioServlet</servlet-name>
         <url-pattern>/UsuarioServlet</url-pattern>
@@ -47,6 +59,18 @@
     <servlet-mapping>
         <servlet-name>CorreoServlet</servlet-name>
         <url-pattern>/CorreoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PedidosServlet</servlet-name>
+        <url-pattern>/PedidosServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VentasServlet</servlet-name>
+        <url-pattern>/VentasServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PerfilServlet</servlet-name>
+        <url-pattern>/PerfilServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

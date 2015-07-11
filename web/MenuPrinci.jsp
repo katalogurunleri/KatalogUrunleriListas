@@ -28,7 +28,7 @@
                 <a href="Inicio.jsp" id="letra" target="Pprincipal">  <li> <center> Inicio </center>  </li> </a>
                 <a href="./CatalogoPrinServlet?action=listar" id="letra" target="Pprincipal"> <li>  <center> Catálogo </center>  </li> </a>
                 <a href="Contactenos.jsp" id="letra" target="Pprincipal">  <li>  <center> Contáctanos</center> </li> </a>  
-                <a href="#" id="letra" target="Pprincipal">  <li>  <center> Regístrese</center> </li> </a>  
+                <a href="Registrese.jsp" id="letra" target="Pprincipal">  <li>  <center> Regístrese</center> </li> </a>  
                 <a href="#" id="letra" onclick="abrirVentana()">  <li>  <center> Ingresar </center> </li> </a>  
             </ul>
         </div>
