@@ -12,6 +12,14 @@
         <servlet-name>ClienteServlet</servlet-name>
         <servlet-class>com.KatalogÜrünleri.Servlets.ClienteServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProductoServlet</servlet-name>
+        <servlet-class>com.KatalogÜrünleri.Servlets.ProductoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CatalogoPrinServlet</servlet-name>
+        <servlet-class>com.KatalogÜrünleri.Servlets.CatalogoPrinServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UsuarioServlet</servlet-name>
         <url-pattern>/UsuarioServlet</url-pattern>
@@ -23,6 +31,14 @@
     <servlet-mapping>
         <servlet-name>ClienteServlet</servlet-name>
         <url-pattern>/ClienteServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProductoServlet</servlet-name>
+        <url-pattern>/ProductoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CatalogoPrinServlet</servlet-name>
+        <url-pattern>/CatalogoPrinServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

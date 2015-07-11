@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author USER
+ * @author Brayan Sosa
  */
 public class UsuarioServlet extends HttpServlet {
 
@@ -176,7 +176,6 @@ public class UsuarioServlet extends HttpServlet {
             try {
                 limpiar();
                 request.setAttribute("datousuario", entU);
-                un.imprimir();
                 if (un.listar() != null) {
                     men = "Tabla de los usuarios existentes";
                     men += "<table class=\"tabla\">";

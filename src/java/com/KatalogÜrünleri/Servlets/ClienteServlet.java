@@ -196,9 +196,8 @@ public class ClienteServlet extends HttpServlet {
             try {
                 limpiar();
                 request.setAttribute("datocliente", entC);
-                cn.imprimir();
                 if (cn.listar() != null) {
-                    men = "Tabla de los usuarios existentes";
+                    men = "Tabla de los clientes existentes";
                     men += "<table class=\"tabla\">";
                     men += "<tr>";
                     men += "<td>Cédula</td>";

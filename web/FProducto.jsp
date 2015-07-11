@@ -133,7 +133,7 @@
                     <td ><%=pro.getDescripcion()%> </td>    
                     <td ><%=pro.getExistencias()%> </td>    
                     <td ><%=pro.getValor()%> </td>    
-                    <td> <img id="perfil" src="ImaCatalogo/<%=pro.getFoto()%>" width="50" height="50"></td>
+                    <td> <img id="perfil" src="c<%=pro.getFoto()%>" width="50" height="50"></td>
                     <td ><%=pro.getEstado()%> </td>    
                     <td> <a href="./ProductoServlet?action=buscar&txtcodpro=<%=pro.getCodpro()%>"> <img src="Imagenes/lupa.png"> </a></td>
                 </tr>
@@ -202,8 +202,8 @@
             color: #00a383;
         }
         #tblu{ 
-            margin-left: 40%;
-            width:725px;
+            margin-left: 37.5%;
+            width:798px;
             height: 300px;
             margin-top: -39%;
             position:absolute;
