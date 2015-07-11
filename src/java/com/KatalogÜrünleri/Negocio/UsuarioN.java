@@ -117,6 +117,18 @@ public class UsuarioN {
         }
         return aux;
     }
+    public Usuario buscarCorreo(String corr) {
+        Usuario aux = cabeza;
+        String mensajeError = "";
+        while (aux != null) {
+            if (aux.correo.equals(corr)) {
+                return aux;
+            } else {
+                aux = aux.apuntador;
+            }
+        }
+        return aux;
+    }
 
     public boolean editarUsuario(Usuario datou) throws Exception {
         String mensajeError = "";

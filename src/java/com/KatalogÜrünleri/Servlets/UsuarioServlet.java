@@ -2,7 +2,6 @@ package com.KatalogÜrünleri.Servlets;
 
 import com.KatalogÜrünleri.Entidades.Usuario;
 import com.KatalogÜrünleri.Negocio.UsuarioN;
-import static com.KatalogÜrünleri.Negocio.UsuarioN.cabeza;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;

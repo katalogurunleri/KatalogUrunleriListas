@@ -4,7 +4,7 @@
 <title>Recordar Contraseña</title>
 <script language="JavaScript">
     window.moveTo(0, 0);
-    window.resizeTo(700, 250);
+    window.resizeTo(900, 280);
 </script>
 <body>
     <form id="fondoformulario" name ="xForm" method="POST" action="./CorreoServlet">
@@ -20,10 +20,12 @@
                         <td> <input type="text"  name="txtemail"   id ="estilo" size="30"></td>     
                         <td><button type="submit" class="btn1" name="action" value="envio" > Envio</button></td>
                     </tr>
+                    <%if (men != null) {%>
+                    <tr>
+                        <td colspan="3" id="men"><center><%=men%></center></td>
+                    </tr>
+                    <%}%>
                 </table>
-                <%if (men != null) {%>
-                <%=men%>
-                <%}%>
             </div>
         </center>
     </form>
@@ -53,6 +55,9 @@
         -moz-box-shadow:0 0px 4px #777, 0 0 20px #CCC inset;
         box-shadow:0 0px 4px #777, 0 0 20px #CCC inset;
     }
-    
+    #men{
+        font-family: Arial;
+        font-size: 100%;
+    }
 </style>
 <!--  Melany estuvo aqui -->
